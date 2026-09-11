@@ -5,6 +5,120 @@ import './styles.css';
 
 const product = products[0];
 
+function HeroProductCarousel() {
+  const [active, setActive] = useState(0);
+  const total = products.length;
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % total);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, [total]);
+
+  const handlePrev = () => {
+    setActive((prev) => (prev - 1 + total) % total);
+  };
+
+  const handleNext = () => {
+    setActive((prev) => (prev + 1) % total);
+  };
+
+  // 3 Exact Slots for Left, Center, Right
+  const centerItem = products[active % total];
+  const leftItem = products[(active + 1) % total];
+  const rightItem = products[(active + 2) % total];
+
+  return (
+    <div className="hero-carousel">
+      <div className="hero-carousel-glow" />
+
+      {/* Cursive Tag from Banner */}
+      <span className="cursive-tag">For every craving</span>
+
+      <div className="carousel-orbit orbit-one" />
+      <div className="carousel-orbit orbit-two" />
+
+      {/* Left Navigation Arrow */}
+      <button
+        type="button"
+        className="carousel-arrow carousel-prev"
+        onClick={handlePrev}
+        aria-label="Previous product"
+      >
+        ‹
+      </button>
+
+      {/* 3 Real Packs Display */}
+      <div className="hero-products">
+        {/* Left Pack */}
+        <div
+          className="hero-product hero-product-left"
+          key={`left-${leftItem.slug}`}
+          onClick={handlePrev}
+        >
+          <img src={leftItem.image} alt={leftItem.name} draggable="false" />
+        </div>
+
+        {/* Center Dominant Front Pack */}
+        <div
+          className="hero-product hero-product-front"
+          key={`front-${centerItem.slug}`}
+        >
+          <img src={centerItem.image} alt={centerItem.name} draggable="false" />
+        </div>
+
+        {/* Right Pack */}
+        <div
+          className="hero-product hero-product-right"
+          key={`right-${rightItem.slug}`}
+          onClick={handleNext}
+        >
+          <img src={rightItem.image} alt={rightItem.name} draggable="false" />
+        </div>
+      </div>
+
+      {/* Right Navigation Arrow */}
+      <button
+        type="button"
+        className="carousel-arrow carousel-next"
+        onClick={handleNext}
+        aria-label="Next product"
+      >
+        ›
+      </button>
+
+      {/* 3D Round Pedestal Table with Neon Glow Arrows */}
+      <div className="hero-table">
+        <div className="table-ring-neon-arrow neon-arrow-left" />
+        <div className="table-ring-neon-arrow neon-arrow-right" />
+        <div className="table-ring table-ring-one" />
+        <div className="table-ring table-ring-two" />
+        <div className="table-top" />
+        <div className="table-base" />
+      </div>
+
+      {/* 3 Dots */}
+      <div className="carousel-dots">
+        {products.map((p, dot) => (
+          <button
+            key={p.slug}
+            type="button"
+            className={active === dot ? 'active' : ''}
+            onClick={() => setActive(dot)}
+            aria-label={`Show ${p.name}`}
+          />
+        ))}
+      </div>
+
+      <div className="carousel-label">
+        <strong>{centerItem.name.replace('TORNATO ', '')}</strong> — {centerItem.weight}
+      </div>
+    </div>
+  );
+}
+
 const Logo = ({ dark = false }: { dark?: boolean }) => (
   <a className={`brand ${dark ? 'brand--dark' : ''}`} href="/" aria-label="TORNATO home">
     <img src="/assets/tornato-logo.png" alt="TORNATO — Real Ingredients. Real Crunch." />
@@ -80,35 +194,77 @@ function Home() {
   return (
     <>
       <Header />
+
       <main>
-        <section className="hero-v2">
-          <div className="hero-noise" />
-          <div className="hero-arc hero-arc--one" />
-          <div className="hero-arc hero-arc--two" />
-          <div className="hero-copy-v2">
-            <SectionLabel light>TORNATO / A FOOD BRAND</SectionLabel>
-            <h1>Food, but<br /><em>with a twist.</em></h1>
-            <p>Bold flavours, playful ideas and everyday food made to feel a little more exciting.</p>
+        <section className="hero">
+          <div className="burst burst-a" />
+          <div className="burst burst-b" />
+
+          {/* Floating Snack Elements */}
+          <div className="floating-item chip-left-top" />
+          <div className="floating-item tomato-slice" />
+          <div className="floating-item chip-right-top" />
+          <div className="floating-item chili-right" />
+
+          <div className="hero-copy">
+            <span className="pill">TORNATO / A FOOD BRAND</span>
+
+            <h1>
+              Food, but
+              <br />
+              <em>with a twist.</em>
+            </h1>
+
+            <p>
+              Bold flavours, playful ideas and everyday food made
+              to feel a little more exciting.
+            </p>
+
             <div className="hero-actions">
-              <a className="button button--yellow" href="/products">Explore products <Arrow /></a>
-              <a className="ghost-link" href="/our-story">Discover our story <Arrow /></a>
+              <a className="button" href="/products">
+                Explore products <b>↗</b>
+              </a>
+
+              <a className="hero-story-link" href="/our-story">
+                Discover our story ↗
+              </a>
             </div>
           </div>
-          <div className="hero-art">
-            <div className="hero-ring hero-ring--outer" />
-            <div className="hero-ring hero-ring--inner" />
-            <span className="hero-tag hero-tag--top">REAL</span>
-            <span className="hero-tag hero-tag--right">FLAVOUR</span>
-            <span className="hero-tag hero-tag--bottom">GOOD FOOD</span>
-            <div className="hero-product-orbit">
-              <img src={product.image} alt="TORNATO Banana Chips" />
+
+          <HeroProductCarousel />
+
+          {/* Yellow Banner with 4 Features & Icons */}
+          <div className="hero-bottom">
+            <div className="feature-item">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.75C6.2 7.5 4.5 9 4 11c1.5-1 3.5-1.5 6-1.5 3 0 5 .5 7-1.5z" />
+              </svg>
+              <span>REAL INGREDIENTS</span>
             </div>
-            <span className="orbit-chip orbit-chip--1" />
-            <span className="orbit-chip orbit-chip--2" />
-            <span className="orbit-chip orbit-chip--3" />
-          </div>
-          <div className="hero-marquee" aria-hidden="true">
-            <span>REAL INGREDIENTS</span><i>✦</i><span>REAL FLAVOUR</span><i>✦</i><span>REAL CHARACTER</span><i>✦</i><span>REAL TORNATO</span><i>✦</i>
+            <div className="bar-separator" />
+
+            <div className="feature-item">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+              </svg>
+              <span>REAL FLAVOUR</span>
+            </div>
+            <div className="bar-separator" />
+
+            <div className="feature-item">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.8 15.6c-.7 1.8-2.1 3.2-3.8 3.9-2.3 1-5 .6-7.3-.6-2.8-1.5-4.7-4.1-5.3-7.2-.3-1.6-.1-3.3.6-4.8.4-.9 1.4-1.2 2.2-.7.8.4 1.1 1.4.7 2.2-.4 1-.5 2.1-.3 3.2.4 2.2 1.8 4 3.8 5.1 1.6.8 3.5 1.1 5.1.4 1.1-.5 2-1.4 2.5-2.5.5-.9 1.5-1.2 2.4-.7.8.4 1.2 1.5.7 2.4z" />
+              </svg>
+              <span>REAL CHARACTER</span>
+            </div>
+            <div className="bar-separator" />
+
+            <div className="feature-item">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+              </svg>
+              <span>MADE TO ENJOY</span>
+            </div>
           </div>
         </section>
 
@@ -278,10 +434,10 @@ function App() {
   const path = location.pathname.replace(/\/$/, '') || '/';
   if (path === '/') return <Home />;
   if (path === '/products') return <Listing />;
-  if (path === '/products/banana-chips') return <ProductDetail />;
+  if (path.startsWith('/products/banana-chips')) return <ProductDetail />;
   if (path === '/faq') return <><Header /><FAQ /><Footer /></>;
-  if (path === '/our-story') return <BasicPage eyebrow="OUR STORY" title="Built for the next bite." copy="BRAND_STORY_CONTENT_HERE — replace this with the true TORNATO story when it is finalised." />;
-  if (path === '/about') return <BasicPage eyebrow="ABOUT TORNATO" title="A food brand with room to grow." copy="TORNATO is building an expressive, accessible food brand for everyday moments. Company details can be added here as they are finalised." />;
+  if (path === '/our-story') return <BasicPage eyebrow="OUR STORY" title="Built for the next bite." copy="TORNATO was created with a clear purpose: honest ingredients, unapologetic crunch, and everyday snacking joy." />;
+  if (path === '/about') return <BasicPage eyebrow="ABOUT TORNATO" title="A food brand with room to grow." copy="TORNATO is building an expressive, accessible food brand for everyday moments." />;
   if (path === '/contact') return <BasicPage eyebrow="CONTACT" title="Let’s talk food." copy="Final contact details will appear here once confirmed."><div className="placeholder-box"><p>Email: {config.email}</p><p>Phone: {config.phone}</p><p>Address: {config.address}</p></div></BasicPage>;
   if (path === '/privacy') return <BasicPage eyebrow="LEGAL" title="Privacy Policy" copy="PRIVACY_POLICY_CONTENT_HERE" />;
   if (path === '/terms') return <BasicPage eyebrow="LEGAL" title="Terms & Conditions" copy="TERMS_AND_CONDITIONS_CONTENT_HERE" />;
