@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@10..48,75..100,600..800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* Contemporary FMCG polish: expressive type, softer depth, and clean colour-led surfaces. */
+body{font-family:'Manrope',sans-serif}
+h1,h2,h3,.story-card,.intro-stickers span{font-family:'Bricolage Grotesque',sans-serif!important}
+header{border-bottom:1px solid rgba(255,255,255,.24);box-shadow:0 8px 26px rgba(104,20,8,.14)}
+header{height:122px;padding:5px 6vw}
+header .brand{width:220px;height:112px}
+header .brand img{max-width:220px;max-height:112px}
+header nav{gap:34px;font-size:20px;letter-spacing:-.45px}
+header .nav-cta{padding:18px 32px;font-size:17px;box-shadow:0 8px 18px rgba(74,29,12,.28);transition:transform .2s ease,box-shadow .2s ease}
+header .nav-cta:hover{transform:translateY(-2px);box-shadow:0 11px 22px rgba(74,29,12,.35)}
+.hero h1,.section-title h2,.feature h2,.story h2,.crunch h2,.detail h1,.basic h1{letter-spacing:-3px}
+.pill{background:rgba(255,255,255,.09);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.45)}
+.button{box-shadow:0 7px 18px rgba(74,29,12,.28);transition:transform .2s ease,box-shadow .2s ease}
+.button:hover{transform:translateY(-2px);box-shadow:0 11px 22px rgba(74,29,12,.35)}
+.intro-stickers span{box-shadow:0 8px 18px rgba(76,36,25,.22);border:1px solid rgba(76,36,25,.12)}
+.product-card{border:1px solid rgba(76,36,25,.08);box-shadow:0 12px 30px rgba(76,36,25,.09)}
+.product-card:hover{box-shadow:0 18px 36px rgba(76,36,25,.16)}
+.story-card{box-shadow:0 18px 38px rgba(128,34,17,.2)}
+.reveal-ready .intro,.reveal-ready .feature,.reveal-ready .why,.reveal-ready .crunch,.reveal-ready .story,.reveal-ready .products-preview,.reveal-ready .marketplace,.reveal-ready .social,.reveal-ready .faq{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal-ready .is-visible{opacity:1!important;transform:none!important}
+@media(max-width:760px){header{height:102px;padding:4px 5vw}header .brand{width:170px;height:94px}header .brand img{max-width:170px;max-height:94px}nav{top:102px!important}}
+@media(prefers-reduced-motion:reduce){.reveal-ready .intro,.reveal-ready .feature,.reveal-ready .why,.reveal-ready .crunch,.reveal-ready .story,.reveal-ready .products-preview,.reveal-ready .marketplace,.reveal-ready .social,.reveal-ready .faq{opacity:1!important;transform:none!important}}
