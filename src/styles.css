@@ -69,7 +69,13 @@ img { max-width: 100%; display: block; }
 .button--light { background: #fff; color: var(--ink); }
 .button--yellow { background: var(--yellow); color: var(--brown); }
 .button--dark { background: var(--brown); color: #fff; }
-.market-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.market-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
 
 /* ==========================================================================
    FLOATING CAPSULE HEADER
@@ -760,8 +766,21 @@ img { max-width: 100%; display: block; }
 .footer-brand p { max-width: 320px; color: #e7d8ca; line-height: 1.5; font-size: 14px; }
 .footer-v2 b { display: block; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); margin-bottom: 14px; }
 .footer-v2 a { display: block; margin: 8px 0; color: #fff; font-size: 14px; }
-.footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.14); min-height: 60px; display: flex; align-items: center; justify-content: center; gap: 30px; font-size: 10px; font-weight: 800; letter-spacing: 0.18em; color: #f3d8c5; }
-
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 14px 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #f3d8c5;
+  text-align: center;
+}
 /* ==========================================================================
    PERFECT RESPONSIVE ENGINE (DESKTOP / TABLET / MOBILE)
    ========================================================================== */
@@ -1081,6 +1100,48 @@ img { max-width: 100%; display: block; }
     padding-top: 50px;
     padding-bottom: 50px;
   }
+
+  .footer-bottom {
+    gap: 12px 16px;
+    padding: 16px 12px;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    justify-content: center;
+  }
+  
+  .footer-bottom span {
+    white-space: nowrap;
+  }
+
+  /* Food Universe Grid Fix for Mobile */
+  .world-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .world-card {
+    min-height: 400px !important;
+    padding: 36px 24px !important;
+  }
+
+ /* Root cause fix: Remove container leftover spacing below cards on mobile */
+  .food-world {
+    padding-bottom: 0 !important;
+  }
+  
+  .world-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Ensure the last green card touches the next section cleanly without gaps */
+  .world-card:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 40px !important;
+  }
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
